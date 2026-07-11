@@ -1,24 +1,32 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+import Toast from 'react-native-toast-message';
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+    <>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="home" />
+        <Stack.Screen name="login" />
+        <Stack.Screen name="register" />
+        <Stack.Screen name="dashboard" />
+        <Stack.Screen name="expert-dashboard" />
+        <Stack.Screen name="admin" />
+        <Stack.Screen name="upload" />
+        <Stack.Screen name="requests" />
+        <Stack.Screen name="aiStudymode" />
+        <Stack.Screen name="expertList" />
+        <Stack.Screen name="groupChat" />
+        <Stack.Screen name="noteDetails" />
+        <Stack.Screen name="profile" />
+        <Stack.Screen name="studentExperts" />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+
+      {/* Mounted once, globally */}
+      <Toast />
+    </>
   );
 }

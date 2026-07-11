@@ -1,12 +1,17 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "plugins": [
+      { "name": "expo-router/typescript-plugin" }
+    ],
     "strict": true,
+    "moduleSuffixes": [".native", ".web", ""],
+    "types": ["react-native-vector-icons"],
     "paths": {
       "@/*": [
         "./*"
       ]
-    }
+    },
   },
   "include": [
     "**/*.ts",
