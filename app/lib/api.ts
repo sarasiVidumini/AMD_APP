@@ -1,31 +1,59 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Expo exposes env vars prefixed with EXPO_PUBLIC_ to client code (replaces Vite's import.meta.env).
-// Set EXPO_PUBLIC_API_BASE_URL in a .env file at your project root.
-//
-// IMPORTANT for React Native (unlike web):
-// - 'localhost' does NOT point to your dev machine from a physical phone or emulator.
-// - Physical phone on Expo Go: use your machine's LAN IP, e.g. http://192.168.1.5:5000
-// - Android emulator: use http://10.0.2.2:5000
-// - iOS simulator: http://localhost:5000 does work
+/**
+ * API Configuration
+ * 
+ * Ensure EXPO_PUBLIC_API_BASE_URL is set in your .env file at the project root.
+ * - Development (Emulator): http://10.0.2.2:5000
+ * - Production (Railway): https://your-backend-name.up.railway.app
+ */
 const BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL;
+
+if (!BASE_URL) {
+  console.warn('EXPO_PUBLIC_API_BASE_URL is not defined in your .env file.');
+}
 
 const API = axios.create({
   baseURL: `${BASE_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000,
+  timeout: 15000, // Increased timeout for production network latency
 });
 
-// AsyncStorage is async, so the interceptor must be async too (unlike localStorage on web)
+/**
+ * Request Interceptor
+ * Automatically attaches the JWT token to every request header
+ */
 API.interceptors.request.use(async (config) => {
-  const token = await AsyncStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  try {
+    const token = await AsyncStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  } catch (error) {
+    console.error('Error retrieving token from storage:', error);
   }
   return config;
+}, (error) => {
+  return Promise.reject(error);
 });
+
+/**
+ * Response Interceptor (Optional)
+ * Useful for handling global errors like 401 Unauthorized
+ */
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // If the server returns 401, you could trigger a logout here
+    if (error.response?.status === 401) {
+      console.warn('Unauthorized - clearing token');
+      AsyncStorage.removeItem('token');
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default API;

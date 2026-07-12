@@ -40,7 +40,7 @@ export default function Navbar() {
         <View style={styles.logoBox}>
           <BookOpen size={18} color="#000" />
         </View>
-        <Text style={styles.logoText}>NoteVault</Text>
+        
       </TouchableOpacity>
 
       {/* Nav icons */}
@@ -72,15 +72,15 @@ export default function Navbar() {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => router.push("/studentExperts")}
+          onPress={() => router.push("/groupChat")}
           style={[
             styles.navItem,
-            isActive("/studentExperts") && styles.navItemActive,
+            isActive("/groupChat") && styles.navItemActive,
           ]}
         >
           <Users
             size={20}
-            color={isActive("/studentExperts") ? AMBER : "#a1a1aa"}
+            color={isActive("/groupChat") ? AMBER : "#a1a1aa"}
           />
         </TouchableOpacity>
 
