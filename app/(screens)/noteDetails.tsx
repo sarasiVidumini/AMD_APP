@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import { useLocalSearchParams, useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+
 import {
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import API from '../../src/lib/api';
-import SecurePdfViewer from '../../components/SecurePdf.web';
+    ActivityIndicator,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
+import SecurePdfViewer from "../../components/SecurePdf.web";
+import API from "../lib/api";
 
 interface NoteData {
   _id: string;
@@ -37,18 +38,20 @@ const NoteDetailsPage: React.FC = () => {
         // Using the shared API client (src/lib/api.ts) instead of a raw axios
         // call — it already attaches the Bearer token from AsyncStorage via
         // its request interceptor, so we don't need to read the token here.
-        const response = await API.get('/notes');
+        const response = await API.get("/notes");
 
-        const targetNote = response.data.find((n: NoteData) => n._id === noteId);
+        const targetNote = response.data.find(
+          (n: NoteData) => n._id === noteId,
+        );
 
         if (!targetNote) {
-          throw new Error('The requested document could not be found.');
+          throw new Error("The requested document could not be found.");
         }
 
         setNote(targetNote);
       } catch (err: any) {
-        console.error('❌ Note Metadata Fetch Error:', err);
-        setError(err.message || 'Failed to load note details.');
+        console.error("❌ Note Metadata Fetch Error:", err);
+        setError(err.message || "Failed to load note details.");
       } finally {
         setLoading(false);
       }
@@ -83,7 +86,9 @@ const NoteDetailsPage: React.FC = () => {
       <View style={styles.header}>
         <Text style={styles.title}>{note?.title}</Text>
         <Text style={styles.subject}>Subject: {note?.subject}</Text>
-        {!!note?.description && <Text style={styles.description}>{note.description}</Text>}
+        {!!note?.description && (
+          <Text style={styles.description}>{note.description}</Text>
+        )}
       </View>
 
       {/* Only render once we have a confirmed note._id — avoids passing
@@ -95,21 +100,31 @@ const NoteDetailsPage: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: { padding: 20 },
-  center: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  loadingText: { marginTop: 10, fontSize: 16, color: '#4b5563' },
-  errorText: { color: '#ef4444', fontSize: 16 },
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  loadingText: { marginTop: 10, fontSize: 16, color: "#4b5563" },
+  errorText: { color: "#ef4444", fontSize: 16 },
   backButton: {
-    backgroundColor: '#e5e7eb',
+    backgroundColor: "#e5e7eb",
     padding: 10,
     borderRadius: 6,
     marginBottom: 16,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
-  backButtonText: { fontWeight: '600', color: '#374151' },
+  backButtonText: { fontWeight: "600", color: "#374151" },
   header: { marginBottom: 24 },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#1f2937' },
-  subject: { fontSize: 16, color: '#4b5563', marginVertical: 4, fontWeight: '600' },
-  description: { fontSize: 14, color: '#6b7280', marginTop: 4 },
+  title: { fontSize: 24, fontWeight: "bold", color: "#1f2937" },
+  subject: {
+    fontSize: 16,
+    color: "#4b5563",
+    marginVertical: 4,
+    fontWeight: "600",
+  },
+  description: { fontSize: 14, color: "#6b7280", marginTop: 4 },
 });
 
 export default NoteDetailsPage;

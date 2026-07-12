@@ -32,6 +32,11 @@ export default function Index() {
           <ArrowRight size={18} color="#000" />
         </TouchableOpacity>
 
+        <TouchableOpacity onPress={() => router.push('/login')}>
+          <Text style={styles.loginLink}>
+            Already have an account? <Text style={styles.loginLinkAccent}>Sign in</Text>
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
