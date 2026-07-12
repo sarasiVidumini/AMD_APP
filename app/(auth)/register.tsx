@@ -220,7 +220,7 @@ export default function Register() {
           <View style={styles.field}>
             <Text style={styles.fieldLabel}>Current Semester</Text>
             <View style={styles.semesterRow}>
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((s) => (
+              {[1, 2, 3, 4].map((s) => (
                 <TouchableOpacity
                   key={s}
                   onPress={() => setField("semester", s)}

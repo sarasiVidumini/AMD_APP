@@ -12,7 +12,20 @@
           "package_name": "com.sarasividumini.AMDApp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "943519895298-8i2inlit67vctf290778mog9i2ifd2bv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sarasividumini.AMDApp",
+            "certificate_hash": "9d86498af78d25b8e8365a086ea893904111c4ca"
+          }
+        },
+        {
+          "client_id": "943519895298-igg5jtk6g5u8hdqrpl7l780eue9gp352.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDUOwzak6Kf0vac6j-yB48hEcL7aj7j9DM"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943519895298-igg5jtk6g5u8hdqrpl7l780eue9gp352.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

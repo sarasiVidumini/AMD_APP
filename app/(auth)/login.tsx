@@ -18,7 +18,7 @@ import { useAuth } from "../hooks/useAuth";
 import API from "../lib/api";
 
 const GOOGLE_WEB_CLIENT_ID =
-  "872414388425-o661s1fjl9ot581eof75210i81l7p79e.apps.googleusercontent.com";
+  "943519895298-igg5jtk6g5u8hdqrpl7l780eue9gp352.apps.googleusercontent.com";
 
 GoogleSignin.configure({
   webClientId: GOOGLE_WEB_CLIENT_ID,
