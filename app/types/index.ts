@@ -7,7 +7,6 @@ export interface User {
   semester?: number;
   expertise?: string;
   avatarUrl?: string;
-  data?:any;
 }
 
 export interface GroupMessage {

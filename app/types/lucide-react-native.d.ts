@@ -1,20 +1,21 @@
+// Workaround for a known lucide-react-native typing bug where its icon props
+// incorrectly extend web SVG types (RefAttributes<SVGSVGElement>) instead of
+// react-native-svg's types. This does not change runtime behavior — icons
+// already accept `color` and `size` correctly on-device; this file only
+// corrects what TypeScript believes the prop shape is.
 declare module 'lucide-react-native' {
   import { FC } from 'react';
   import { SvgProps } from 'react-native-svg';
-  import { ViewStyle, StyleProp } from 'react-native';
 
   export interface LucideProps extends SvgProps {
     size?: string | number;
     color?: string;
     strokeWidth?: string | number;
     fill?: string;
-    // Added style prop to fix the "Property 'style' does not exist" error
-    style?: StyleProp<ViewStyle>;
   }
 
   export type LucideIcon = FC<LucideProps>;
 
-  // Existing icons
   export const Trash2: LucideIcon;
   export const Star: LucideIcon;
   export const RefreshCw: LucideIcon;
@@ -74,10 +75,14 @@ declare module 'lucide-react-native' {
   export const Pencil: LucideIcon;
   export const MonitorSmartphone: LucideIcon;
   export const FileUp: LucideIcon;
-
-  // Newly added exports to resolve "no exported member" errors
-  export const Plus: LucideIcon;
+  export const LayoutGrid: LucideIcon;
+  export const Lock: LucideIcon;
   export const CheckCircle: LucideIcon;
   export const Compass: LucideIcon;
-  export const Lock: LucideIcon;
+  export const Plus: LucideIcon;
+  export const Filter: LucideIcon;
+  export const Grid3x3: LucideIcon;
+  export const List: LucideIcon;
+  export const Globe: LucideIcon;
+  export const LogOut: LucideIcon;
 }
